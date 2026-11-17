@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.1);
+        }
+        h2 { text-align: center; color: #1e293b; }
+        label { display: block; margin-top: 13px; }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .error { color: #dc2626; font-size: 13px; }
+        a { color: #2563eb; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Employee Registration</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+
+            {% for error in field.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+            <p class="error">{{ form.non_field_errors }}</p>
+        {% endif %}
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p>Already registered? <a href="{% url 'login' %}">Login</a></p>
+</div>
+</body>
+</html>

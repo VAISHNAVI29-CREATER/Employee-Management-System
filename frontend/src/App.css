@@ -1,0 +1,181 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  color: #263247;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  background: #3157c8;
+  color: white;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #2343a3;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 25px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px #0000000d;
+}
+
+.app-header h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.employee-form,
+.employee-list {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px #0000000d;
+}
+
+.employee-form form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d4d9e2;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #9bb2ff;
+  border-color: #3157c8;
+}
+
+.employee-form label {
+  font-weight: 600;
+  align-self: center;
+}
+
+.employee-form select[multiple] {
+  min-height: 100px;
+}
+
+.employee-form button {
+  width: fit-content;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  min-width: 850px;
+}
+
+th,
+td {
+  padding: 13px;
+  border-bottom: 1px solid #e5e8ef;
+  text-align: left;
+}
+
+th {
+  background: #edf1fb;
+}
+
+td button {
+  margin: 3px;
+  padding: 8px 12px;
+}
+
+.error {
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.success {
+  color: #218344;
+  background: #e8f5e9;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 35px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px #00000014;
+}
+
+.login-form h2 {
+  text-align: center;
+}
+
+.login-form input {
+  margin: 10px 0;
+}
+
+.login-form button {
+  width: 100%;
+  margin-top: 15px;
+}
+
+@media (max-width: 650px) {
+  .employee-form form {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+}

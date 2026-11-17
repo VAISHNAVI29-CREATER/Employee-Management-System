@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Directory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        input, select, button, .add {
+            padding: 10px;
+            border-radius: 6px;
+        }
+        input, select {
+            border: 1px solid #cbd5e1;
+        }
+        button, .add {
+            border: none;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 850px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        th { background: #dbeafe; }
+        .table-wrap { overflow-x: auto; }
+        .delete { background: #dc2626; }
+        .edit { color: #2563eb; }
+        .success { color: #15803d; }
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .toolbar { flex-direction: column; }
+            .toolbar input, .toolbar select { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2>Employee Directory</h2>
+
+    {% for message in messages %}
+        <p class="success">{{ message }}</p>
+    {% endfor %}
+
+    <div class="toolbar">
+        <form method="GET">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search employee..."
+                value="{{ search_query }}"
+            >
+
+            <select name="department">
+                <option value="">All Departments</option>
+                {% for department in departments %}
+                    <option
+                        value="{{ department.id }}"
+                        {% if selected_department == department.id|stringformat:"s" %}selected{% endif %}
+                    >
+                        {{ department.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Search / Filter</button>
+            <a href="{% url 'employee_list' %}">Reset</a>
+        </form>
+
+        <a class="add" href="{% url 'employee_create' %}">
+            + Add Employee
+        </a>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Job Role</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.employee_id }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.department.name }}</td>
+                <td>{{ employee.job_role }}</td>
+                <td>
+                    <a class="edit"
+                       href="{% url 'employee_update' employee.pk %}">
+                        Edit
+                    </a>
+
+                    <form method="POST"
+                          action="{% url 'employee_delete' employee.pk %}"
+                          style="display:inline"
+                          onsubmit="return confirm('Are you sure you want to delete this employee?');">
+                        {% csrf_token %}
+                        <button class="delete" type="submit">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No employees found.</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <p><a href="{% url 'admin_dashboard' %}">Back to Dashboard</a></p>
+
+</div>
+</body>
+</html>

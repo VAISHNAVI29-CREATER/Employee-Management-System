@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Not Found</title>
+</head>
+<body>
+    <h2>Employee Profile Not Found</h2>
+    <p>Your login account is not linked to an employee record.</p>
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,62 @@
+
+{% extends "employees/base.html" %}
+
+{% block title %}Employee Registration{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <span class="tag">EMPLOYEE PORTAL</span>
+    <h1>Employee Registration</h1>
+    <p class="muted">
+        Enter the employee details below. Fields marked with an asterisk
+        are required.
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div role="status"
+                 style="background:#dcfce7;color:#166534;padding:12px;border-radius:8px;margin:16px 0;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div style="margin-bottom:18px;">
+                <label for="{{ field.id_for_label }}"
+                       style="display:block;font-weight:600;margin-bottom:7px;">
+                    {{ field.label }} *
+                </label>
+
+                {{ field }}
+
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p style="color:#b91c1c;font-size:14px;margin:5px 0;"
+                           role="alert">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+            {{ form.non_field_errors }}
+        {% endif %}
+
+        <button class="button" type="submit"
+                style="border:0;cursor:pointer;">
+            Register Employee
+        </button>
+
+        <a class="button" href="{% url 'employee_list' %}"
+           style="background:#64748b;">
+            View Employees
+        </a>
+    </form>
+</section>
+{% endblock %}

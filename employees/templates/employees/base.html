@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Employee Management{% endblock %}</title>
+    <style>
+        input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    margin-top: 4px;
+    font: inherit;
+    background: #ffffff;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #a5b4fc;
+    border-color: #6366f1;
+}
+
+button:hover, .button:hover {
+    opacity: 0.9;
+}
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+        nav {
+            background: #172554;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        nav strong { color: white; font-size: 20px; }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        main {
+            width: 84%;
+            max-width: 1100px;
+            margin: 45px auto;
+            min-height: 65vh;
+        }
+        .hero, .panel {
+            background: white;
+            padding: 36px;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px #17255410;
+        }
+        .hero { border-top: 5px solid #6366f1; }
+        h1 { font-size: 34px; }
+        .muted { color: #64748b; line-height: 1.7; }
+        .button {
+            display: inline-block;
+            background: #4f46e5;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 12px;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        footer {
+            text-align: center;
+            padding: 22px;
+            color: #64748b;
+        }
+        @media (max-width: 600px) {
+            main { width: 92%; margin: 25px auto; }
+            .hero, .panel { padding: 22px; }
+            h1 { font-size: 28px; }
+            nav a { margin-left: 0; margin-right: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <strong>EMS | Employee Management</strong>
+        <div>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'employee_list' %}">Employees</a>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>Artlysoft Python Internship | Day 6</footer>
+</body>
+</html>

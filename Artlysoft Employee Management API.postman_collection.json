@@ -1,0 +1,46 @@
+{
+  "info": {
+    "_postman_id": "7432a216-21ab-4285-897d-c3926b1b8626",
+    "name": "Artlysoft Employee Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59580850",
+    "_collection_link": "https://go.postman.co/collection/59580850-7432a216-21ab-4285-897d-c3926b1b8626?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Authorization",
+      "item": [
+        {
+          "name": "Employee APIs",
+          "item": [
+            {
+              "name": "Department APIs",
+              "item": [
+                {
+                  "name": "Project APIs",
+                  "item": [
+                    {
+                      "name": "Search and Filtering",
+                      "item": [
+                        {
+                          "name": "Permission Tests",
+                          "item": [],
+                          "description": "Employee Own Record, Employee Other Record, Employee Create Restriction"
+                        }
+                      ],
+                      "description": "Search Employees, Filter by Department, Order Employees"
+                    }
+                  ],
+                  "description": "Get Projects"
+                }
+              ],
+              "description": "Get Departments"
+            }
+          ],
+          "description": "Get All Employees, Get Employee by ID, Create Employee, Update Employee, Delete Employee"
+        }
+      ],
+      "description": "Generate Admin Token, Generate Employee Token"
+    }
+  ]
+}

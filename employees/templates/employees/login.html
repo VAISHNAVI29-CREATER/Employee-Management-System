@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Employee Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 35px;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.1);
+        }
+        h2 { text-align: center; color: #1e293b; }
+        label { display: block; margin-top: 15px; }
+        input {
+            width: 100%;
+            padding: 11px;
+            margin-top: 7px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 22px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .error { color: #dc2626; }
+        .message { color: #15803d; }
+        a { color: #2563eb; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Employee Login</h2>
+
+    {% for message in messages %}
+        <p class="message">{{ message }}</p>
+    {% endfor %}
+
+    {% if form.non_field_errors %}
+        <p class="error">{{ form.non_field_errors }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Username</label>
+        {{ form.username }}
+
+        <label>Password</label>
+        {{ form.password }}
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p>New employee? <a href="{% url 'register' %}">Register here</a></p>
+</div>
+</body>
+</html>

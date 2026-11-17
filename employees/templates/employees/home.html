@@ -1,0 +1,32 @@
+{% extends "employees/base.html" %}
+
+{% block title %}Home | Employee Management{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <span class="tag">EMPLOYEE MANAGEMENT SYSTEM</span>
+    <h1>Welcome to Employee Management</h1>
+    <p class="muted">
+        A simple Django web application designed to organise and display
+        employee information in one place.
+    </p>
+    <a class="button" href="{% url 'employee_list' %}">
+        View Employees →
+    </a>
+</section>
+
+<div class="cards">
+    <section class="card">
+        <h3>Employee Directory</h3>
+        <p class="muted">View employee names, departments and email addresses.</p>
+    </section>
+    <section class="card">
+        <h3>Simple Navigation</h3>
+        <p class="muted">Move between the home page and employees page.</p>
+    </section>
+    <section class="card">
+        <h3>Built with Django</h3>
+        <p class="muted">Uses Django views, URL routing and HTML templates.</p>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f1f5f9; color: #1e293b; }
+        header { background: #172554; color: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
+        main { padding: 30px 5%; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 22px; border-radius: 10px; box-shadow: 0 2px 8px #0001; }
+        .number { font-size: 28px; font-weight: bold; color: #2563eb; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 25px; }
+        th, td { padding: 13px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        th { background: #dbeafe; }
+        button { background: #dc2626; color: white; border: 0; padding: 9px 14px; border-radius: 5px; cursor: pointer; }
+        .table-wrap { overflow-x: auto; }
+    </style>
+</head>
+<body>
+<header>
+    <h2>Admin Dashboard</h2>
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</header>
+
+<main>
+    <h2>Welcome, {{ request.user.username }}</h2>
+    <p>Employee Management System – Administration</p>
+
+    <div class="cards">
+        <div class="card">
+            <p>Total Employees</p>
+            <div class="number">{{ employee_count }}</div>
+        </div>
+        <div class="card">
+            <p>Total Departments</p>
+            <div class="number">{{ department_count }}</div>
+        </div>
+        <div class="card">
+            <p>Total Projects</p>
+            <div class="number">{{ project_count }}</div>
+        </div>
+    </div>
+
+    <h2>Employee Records</h2>
+    <div class="table-wrap">
+        <table>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Job Role</th>
+                <th>Projects</th>
+            </tr>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.employee_id }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.department.name }}</td>
+                <td>{{ employee.job_role }}</td>
+                <td>
+                    {% for project in employee.projects.all %}
+                        {{ project.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        No projects
+                    {% endfor %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No employees found.</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <p><a href="{% url 'employee_list' %}">View Employee Directory</a></p>
+    <p><a href="/admin/">Open Django Admin Panel</a></p>
+</main>
+</body>
+</html>

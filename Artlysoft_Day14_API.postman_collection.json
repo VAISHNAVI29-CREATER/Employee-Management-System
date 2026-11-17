@@ -1,0 +1,164 @@
+
+{
+  "info": {
+    "name": "Artlysoft Day 14 - React Django Integration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "baseUrl", "value": "http://127.0.0.1:8000/api"},
+    {"key": "adminToken", "value": ""},
+    {"key": "employeeToken", "value": ""},
+    {"key": "employeeId", "value": ""},
+    {"key": "departmentId", "value": "1"},
+    {"key": "projectId", "value": "1"}
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"Admin\",\"password\":\"Admin@123\"}"
+            },
+            "url": "{{baseUrl}}/auth/token/"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Admin login successful', function () {",
+                "    pm.response.to.have.status(200);",
+                "    pm.expect(pm.response.json().token).to.exist;",
+                "    pm.collectionVariables.set('adminToken', pm.response.json().token);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }]
+        },
+        {
+          "name": "Employee Login",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"Priya\",\"password\":\"Priya@123\"}"
+            },
+            "url": "{{baseUrl}}/auth/token/"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Employee login successful', function () {",
+                "    pm.response.to.have.status(200);",
+                "    pm.collectionVariables.set('employeeToken', pm.response.json().token);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }]
+        }
+      ]
+    },
+    {
+      "name": "Admin Employee CRUD",
+      "item": [
+        {
+          "name": "Get All Employees",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Token {{adminToken}}"}],
+            "url": "{{baseUrl}}/employees/"
+          }
+        },
+        {
+          "name": "Create Employee",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Token {{adminToken}}"}, {"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"employee_id\":\"105\",\"name\":\"Postman Test\",\"email\":\"postman105@example.com\",\"phone\":\"9876543212\",\"salary\":\"25000.00\",\"department\":{{departmentId}},\"job_role\":\"Developer\",\"date_of_joining\":\"2026-11-10\",\"projects\":[{{projectId}}]}"
+            },
+            "url": "{{baseUrl}}/employees/"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Employee created', function () {",
+                "    pm.response.to.have.status(201);",
+                "    pm.collectionVariables.set('employeeId', pm.response.json().id);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }]
+        },
+        {
+          "name": "Update Employee",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Token {{adminToken}}"}, {"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"job_role\":\"Senior Developer\",\"salary\":\"30000.00\"}"
+            },
+            "url": "{{baseUrl}}/employees/{{employeeId}}/"
+          }
+        },
+        {
+          "name": "Delete Employee",
+          "request": {
+            "method": "DELETE",
+            "header": [{"key": "Authorization", "value": "Token {{adminToken}}"}],
+            "url": "{{baseUrl}}/employees/{{employeeId}}/"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employee Permission Tests",
+      "item": [
+        {
+          "name": "Employee Get Own Records",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Token {{employeeToken}}"}],
+            "url": "{{baseUrl}}/employees/"
+          }
+        },
+        {
+          "name": "Employee Create Restriction",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Token {{employeeToken}}"}, {"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"employee_id\":\"106\",\"name\":\"Unauthorized Test\",\"email\":\"unauthorized106@example.com\",\"phone\":\"9876543213\",\"salary\":\"20000.00\",\"department\":{{departmentId}},\"job_role\":\"Tester\",\"date_of_joining\":\"2026-11-10\",\"projects\":[]}"
+            },
+            "url": "{{baseUrl}}/employees/"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Employee cannot create records', function () {",
+                "    pm.response.to.have.status(403);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}
