@@ -308,3 +308,92 @@ python -m pytest -v
 ### Conclusion
 
 Day 18 demonstrates automated testing, CRUD validation, authentication and permission testing, error handling, application logging and secure environment configuration across Django REST Framework and FastAPI.
+
+
+# Day 19 – Git, GitHub and Production Preparation
+
+## Git and GitHub Workflow
+
+The project is maintained using Git and GitHub for version control.
+
+- Initialized a Git repository with the `main` branch.
+- Created meaningful commits.
+- Created the feature branch `feature/employee-search`.
+- Improved the employee search input with accessibility attributes.
+- Pushed the feature branch to GitHub.
+- Created and merged Pull Request #1.
+
+## Merge Conflict Practice
+
+Practiced Git merge conflict resolution using two separate practice branches.
+
+- Created conflicting changes to the same file.
+- Identified Git conflict markers.
+- Resolved the conflict by combining both versions.
+- Completed the merge successfully.
+
+## Production Preparation
+
+Created a separate production settings module:
+
+`config/settings_production.py`
+
+Production configuration includes:
+
+- `DEBUG = False`
+- Environment-based secret key and allowed hosts
+- HTTPS security settings
+- Secure session and CSRF cookies
+- Static-file configuration using `STATIC_ROOT`
+- WhiteNoise middleware
+- Compressed static-file storage
+
+## Static File Management
+
+Configured Django static-file collection using:
+
+```bash
+python manage.py collectstatic --noinput --settings=config.settings_production
+```
+
+Static files are collected into the `staticfiles/` directory.
+
+## Production Dependencies
+
+Additional production packages:
+
+- Gunicorn
+- WhiteNoise
+
+These dependencies are documented in `requirements.txt`.
+
+## Environment Configuration
+
+The `.env.example` file documents the required environment variables:
+
+- `DJANGO_SECRET_KEY`
+- `DB_PASSWORD`
+- `DJANGO_ALLOWED_HOSTS`
+
+Actual environment secrets are excluded from GitHub using `.gitignore`.
+
+## Production Security Checklist
+
+- Disable Django DEBUG mode.
+- Use a strong secret key stored securely.
+- Configure trusted allowed hosts.
+- Store database credentials in environment variables.
+- Enable HTTPS and secure cookies after HTTPS deployment is configured.
+- Keep generated static files and private configuration out of GitHub.
+
+## Day 19 Validation Results
+
+- Git repository initialized and pushed to GitHub.
+- Feature branch and Pull Request completed.
+- Merge conflict successfully resolved.
+- Django production system check passed.
+- Static files successfully collected and post-processed using WhiteNoise.
+
+GitHub Repository:
+
+https://github.com/VAISHNAVI29-CREATER/Employee-Management-System
