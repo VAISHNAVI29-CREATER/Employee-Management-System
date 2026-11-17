@@ -72,11 +72,14 @@
     <div class="toolbar">
         <form method="GET">
             <input
-                type="text"
+                type="search"
                 name="search"
-                placeholder="Search employee..."
+                placeholder="Search by name, ID, email or job role..."
+                aria-label="Search employees by name, ID, email or job role"
                 value="{{ search_query }}"
-            >
+                autocomplete="off"
+           >
+
 
             <select name="department">
                 <option value="">All Departments</option>
